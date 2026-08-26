@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: erupt-hr
+
+  # Default profile runs on a file-backed H2 so the system boots with zero setup.
+  # For production switch to MySQL — see the `mysql` profile at the bottom of this file.
+  datasource:
+    url: jdbc:h2:file:./data/talent;AUTO_SERVER=TRUE;MODE=MySQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    generate-ddl: true
+    database: h2
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        # Keep Hibernate 6 storing enums as varchar instead of a native enum type.
+        type.enumeration.use_named: false
+
+  # Resume attachments can be several MB each.
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 60MB
+
+erupt:
+  # Chinese UI: the module's own labels are Chinese and this makes the framework's
+  # built-in text (buttons, validation messages, base columns) match.
+  default-locales: zh-CN
+  # Where resume attachments — uploaded manually or pulled from the mailbox — are stored.
+  upload-path: ./data/attachment
+  # FILE: menus and seed data are initialised once, tracked by a marker file under .erupt/
+  init-method-enum: EVERY
+
+logging:
+  level:
+    xyz.erupt.talent: INFO
+
+---
+# Activate with: --spring.profiles.active=mysql
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/erupt_talent?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # Supply credentials through the environment, never in this file.
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+erupt:
+  init-method-enum: every
