@@ -1,4 +1,4 @@
-# erupt-hr · 全流程招聘管理系统
+# erupt-talent · 全流程招聘管理系统
 
 基于 [Erupt](https://github.com/erupts/erupt) 低代码框架实现的企业社招全流程管理系统，覆盖
 **简历 → 初筛 → 多轮面试 → 拟录用 → Offer 审批与自动发件 → 候选人确认 → 待入职 → 正式入职 → 数据漏斗** 全链路。
