@@ -10,6 +10,14 @@
         <relativePath/>
     </parent>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <groupId>xyz.erupt</groupId>
     <artifactId>erupt-talent</artifactId>
     <version>1.0.0</version>
